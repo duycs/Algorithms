@@ -1,6 +1,6 @@
 //example
 var arr = [10, -10, 1, 3, 2, 0, 5, -5];
-
+console.log('Merge sort');
 console.log('Array befor sorting: ', arr);
 console.log('Array after sorting: ', mergeSort(arr));
 
