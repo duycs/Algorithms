@@ -1,0 +1,99 @@
+
+function searchWord(array, key, limitSubWord = 10){
+    let result = [];
+    let wordCounts = [];
+    key = key.toLowerCase();
+    array.forEach(element => {
+        let wordSplited = element.toLowerCase().split(" ");
+
+        // first words each words, eg: gooogle translate => ['gt', 'gotr', 'gootra', 'googtran', 'googltrans', 'googletransl', 'googletransla', 'googletranslat', 'googletranslate']
+        let firstWordEachWords = [];
+        let countSub = 1;
+        while(countSub < limitSubWord){
+            let firstWords = wordSplited.map(word => word.substring(0, countSub).toLowerCase());
+            firstWordEachWords.push(firstWords.join(""));
+            countSub ++;
+        };
+        //console.log(firstWordEachWords);
+
+        // sub first words, eg: google translate => ['g', 'go', 'goo', 'goog', 'googl', 'google', 't', 'tr', 'tra', 'tran', 'trans', 'transl', 'transla', 'translat', 'translate']
+        let subFirstWords = [];
+        wordSplited.forEach(word => {
+            let nextWordCount = 0;
+            let limit = limitSubWord;
+            let words = word.split('');
+            if(words.length < limit){
+                limit = words.length;
+            }
+            words.forEach(w => {
+                if(nextWordCount < limit){
+                    nextWordCount ++;
+                    subFirstWords.push(word.substring(0, nextWordCount).toLowerCase());
+                }
+            });
+        });
+        //console.log(subFirstWords);
+
+        let wordCount = {"words": wordSplited, "count": wordSplited.length, "firstWords": firstWordEachWords, "subFirstWords": subFirstWords};
+        wordCounts.push(wordCount);
+    });
+
+    wordCounts.sort((a, b) => (a.count > b.count) ? 1 : -1)
+
+    wordCounts.forEach((element, index) => {
+        let isMathWord = element.words.indexOf(key) > -1 || element.firstWords.indexOf(key) > -1 || element.subFirstWords.includes(key);
+        if(isMathWord){
+            result.push(element.words.join(" "));
+        }
+    });
+
+    return result;
+}
+
+
+function search(array, key){
+    console.log("SEARCH: " + key);
+    let words = key.split(" ");
+    let result = [];
+    words.forEach(element => {
+        let ret = searchWord(array, element);
+        result.push(...ret);
+    });
+
+    let distinct = [];
+    result.forEach((c) => {
+        if (!distinct.includes(c)) {
+            distinct.push(c);
+        }
+    });
+    
+    console.log("RESULT: " + distinct + "\n");
+}
+
+function run(){
+    arr1 = ["abcd", "Google Translate", "Bing Translate", "Google Bing Translate", "Gtranslate", "Translate", "Gtrans", "Bing bong"];
+    console.log("INPUT: " + JSON.stringify(arr1) + "\n");
+    
+    // find one
+    search(arr1, "Translate");
+
+    // find two
+    search(arr1, "Google Translate");
+
+    // find first character each word
+    search(arr1, "Gt");
+
+    // find many character each word
+    search(arr1, "Gotr");
+
+    // find sub first characters
+    search(arr1, "Trans");
+
+    // find one word in words
+    search(arr1, "Oh no bing");
+
+    // not found
+    search(arr1, "no thing nothing");
+}
+
+run();
