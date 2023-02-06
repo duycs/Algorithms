@@ -1,9 +1,9 @@
-### Shuffle the Array
+/* Shuffle the Array
 Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
 Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+*/
 
-### C# implement
- public int[] Shuffle(int[] nums, int n) {
+public int[] Shuffle(int[] nums, int n) {
         var result = new List<int>();
         var numsLeft = new List<int>();
         var numsRight = new List<int>();
