@@ -1,0 +1,40 @@
+public void log(int[] numbers){
+  // Constant: O(1)
+  System.out.print();
+  
+  // Linear: O(n)
+  for (int i = 0; i < numbers.lenght; i++){
+    System.out.print(i); // O(1)
+  }
+  
+  // Quardtic: O(n*n)
+  for (int i = 0; i < nunbers.length; i++) {
+    for (int j = 0; i < numbers.length; j++) {
+      System.out.print(j); // (1)
+    }
+  }
+  
+  // Logarithimic: O(log n)
+  public int binary_search(int val, int Arr[], int n)
+  {
+    int step = 0;
+    int l = 0, r = n - 1;
+ 
+    while (l <= r) {
+      steps++;
+      int m = l + (r - l) / 2;
+      if (Arr[m] == val)
+        return m;
+      else if (Arr[m] < val)
+        l = m + 1;
+      else
+        r = m - 1;
+    }
+    
+    return -1;
+  }
+  
+  // Exponential: O(2^n)
+  
+  
+}
