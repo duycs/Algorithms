@@ -5,7 +5,7 @@ public class LinkedList {
   public void addFirst(int item){
     var node = new Node(item);
     
-    if(isEmpty()){
+    if (isEmpty()) {
       first = last = node;
     } else {
       node.next = first;
@@ -38,7 +38,9 @@ public class LinkedList {
   }
   
   public void removeLast(){
-    var previous = getPrevios(last);
+    if (isEmpty()) throw new NoSuchElementException();
+    
+    var previous = getPrevious(last);
     last = previous;
     last.next = null;
   }
@@ -50,10 +52,11 @@ public class LinkedList {
   public int indexOf(int item){
     index = 0;
     var current = first;
+    
     while(current != null) {
       if(current.value == item) return index;
       current = current.next;
-      index;
+      index++;
     }
 
     return -1;
@@ -61,10 +64,12 @@ public class LinkedList {
   
   private Node getPrevious(Node node){
     var current = first;
-    while (current != null){
-      if(current.nect == last) return current;
+    
+    while (current != null) {
+      if (current.next == node) return current;
       current = current.next;
     }
+    
     return null;
   }
   
